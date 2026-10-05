@@ -1,0 +1,13 @@
+{
+  "split": "held-out",
+  "count": 20,
+  "passed": 19,
+  "failures": [
+    "R19"
+  ],
+  "limitations": [
+    "Synthetic corpus, document-selected retrieval; unfiltered search tested separately.",
+    "Required-term and citation-ID checks are not a proof of semantic support. Review saved passages and answers.",
+    "No claim of a paired thinking-on/off benchmark."
+  ]
+}

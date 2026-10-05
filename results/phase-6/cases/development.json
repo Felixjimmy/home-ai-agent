@@ -1,0 +1,23 @@
+[
+  {
+    "id": "M01",
+    "message": "Is the Hall light on, and how many eggs are available?",
+    "expected_specialists": ["household"],
+    "expected_terms": ["off", "6"],
+    "expect_proposal": false
+  },
+  {
+    "id": "M02",
+    "message": "Check how much milk is left and schedule a reminder for tomorrow to buy milk.",
+    "expected_specialists": ["household", "scheduler"],
+    "expected_terms": ["milk", "pending"],
+    "expect_proposal": true
+  },
+  {
+    "id": "M03",
+    "message": "Add 2 cartons of oat milk to the shopping list.",
+    "expected_specialists": ["household"],
+    "expected_terms": ["pending"],
+    "expect_proposal": true
+  }
+]

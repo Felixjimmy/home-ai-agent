@@ -1,0 +1,48 @@
+{
+  "corpus": {
+    "cedar": {
+      "document_id": "34e235dc-7865-471e-8983-1711cf0b20e1",
+      "version_id": "8840138b-0f77-4aee-89bb-1796d18a0f44",
+      "job_id": "edc44df1-1dc6-44ea-8c9d-aecb0d4aae6c",
+      "status": "queued",
+      "sha256": "bafb0154e12ccc3efe58f35e98528e50c4d55adab8432e2af61caf1a14870332",
+      "title": "Synthetic Cedar V310 reference"
+    },
+    "storage": {
+      "document_id": "658f4cf5-6154-44a0-8a17-bb61f7aa045e",
+      "version_id": "e2539ae8-b0cc-42d3-a3c2-adf5561e81cd",
+      "job_id": "e0fad8cb-acca-4c35-a39c-7c3575837b25",
+      "status": "queued",
+      "sha256": "b0148d5faa5a25d8dc2ea6083047fd23f46d1c416e5418e70949b4f841b9fa26",
+      "title": "Synthetic Maple household storage"
+    },
+    "untrusted": {
+      "document_id": "5ddf73bb-0c63-420b-86d8-11ce4a7924cf",
+      "version_id": "ca851608-b327-4a28-89bd-f4b8403afe3f",
+      "job_id": "3039c0fa-cdb0-450c-bc37-b4ea571c031a",
+      "status": "queued",
+      "sha256": "747b20f9f683a2cafa803b09b1d8635e92fdfb9e809b662e954920811c5eb9b1",
+      "title": "Synthetic workshop note with embedded attack"
+    },
+    "conflict2": {
+      "document_id": "36863b8a-0589-412a-bd45-9e5558579289",
+      "version_id": "71690c9e-0eb2-4795-84c8-f18305f4f3c1",
+      "job_id": "0071825e-8e00-4455-a31f-53edb525a128",
+      "status": "queued",
+      "sha256": "21d154aa88d463f916dd7a28f951806e5dea8921c5d7b366d1e7e647000d1dd4",
+      "title": "Synthetic unresolved collection-day notes"
+    }
+  },
+  "model": "qwen3:8b",
+  "thinking": false,
+  "embedding": {
+    "model": "embeddinggemma",
+    "digest": "85462619ee721b466c5927d109d4cb765861907d5417b9109caebc4e614679f1",
+    "dimension": 768,
+    "chunk_chars": 1600,
+    "overlap_chars": 240,
+    "extractor": "v1"
+  },
+  "python": "3.14.6",
+  "case_sha256": "72deff2b0bcd4a3553ef8a37f3a135e18ed968cbb66c9e95cf2301821f4d3f5f"
+}

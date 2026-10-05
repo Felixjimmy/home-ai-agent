@@ -1,0 +1,230 @@
+[
+  {
+    "id": "R01",
+    "message": "Check the front door lock and the living-room thermostat. Do not change anything.",
+    "expected_tools": [
+      "get_device_state"
+    ],
+    "expected_terms": [
+      "locked",
+      "20"
+    ],
+    "expect_proposal": false,
+    "trace": [
+      {
+        "stage": "model",
+        "iteration": 1,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "get_device_state",
+                "arguments": {
+                  "room": "front door",
+                  "device": "lock"
+                }
+              }
+            },
+            {
+              "function": {
+                "name": "get_device_state",
+                "arguments": {
+                  "room": "living room",
+                  "device": "thermostat"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "get_device_state",
+        "arguments": {
+          "room": "front door",
+          "device": "lock"
+        },
+        "result": {
+          "found": false,
+          "message": "No matching device was found. Ask the user to clarify the room or device."
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "get_device_state",
+        "arguments": {
+          "room": "living room",
+          "device": "thermostat"
+        },
+        "result": {
+          "found": true,
+          "id": 3,
+          "room": "Living room",
+          "device": "Thermostat",
+          "type": "thermostat",
+          "state": {
+            "temperature_c": 20
+          }
+        }
+      },
+      {
+        "stage": "model",
+        "iteration": 2,
+        "message": {
+          "role": "assistant",
+          "content": "The front door lock could not be found. Please check if the device name or room is correct. The living-room thermostat is currently set to 20\u00b0C."
+        }
+      },
+      {
+        "stage": "final",
+        "answer": "I haven't changed anything. I couldn't verify or match that requested action to a household record. Please clarify the room, device, or item.",
+        "pending_actions": [],
+        "diagnostics": {
+          "stop_reason": "final_answer",
+          "iterations": 2,
+          "tool_calls": 2,
+          "duplicate_calls": 0
+        }
+      }
+    ],
+    "http_status": 200,
+    "request_id": "1fdcc5ef-188a-47be-9b6f-47657eb43b8b",
+    "actual": {
+      "response": "I haven't changed anything. I couldn't verify or match that requested action to a household record. Please clarify the room, device, or item.",
+      "model": "qwen3:8b",
+      "latency_ms": 2904,
+      "pending_actions": [],
+      "sources": [],
+      "evidence_status": "not_applicable",
+      "request_id": "1fdcc5ef-188a-47be-9b6f-47657eb43b8b",
+      "session_id": null,
+      "memory_refs": []
+    },
+    "proposals": [],
+    "tool_calls": [
+      "get_device_state",
+      "get_device_state"
+    ],
+    "diagnostics": {
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "tool_calls": 2,
+      "duplicate_calls": 0
+    },
+    "checks": {
+      "http_ok": true,
+      "expected_tools_present": true,
+      "expected_terms_present": false,
+      "proposal_expectation": true,
+      "no_confirmed_write": true,
+      "within_iteration_cap": true
+    },
+    "cleanup_errors": [],
+    "household_unchanged": true,
+    "passed": false
+  },
+  {
+    "id": "R02",
+    "message": "Check the eggs. If we have fewer than two, propose adding one dozen eggs to the shopping list; otherwise only report the quantity.",
+    "expected_tools": [
+      "check_inventory"
+    ],
+    "expected_terms": [
+      "6"
+    ],
+    "expect_proposal": false,
+    "trace": [
+      {
+        "stage": "model",
+        "iteration": 1,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "check_inventory",
+                "arguments": {
+                  "item": "eggs"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "check_inventory",
+        "arguments": {
+          "item": "eggs"
+        },
+        "result": {
+          "found": true,
+          "name": "eggs",
+          "quantity": "6.00",
+          "unit": "eggs",
+          "low_stock_threshold": "2.00",
+          "low_stock": false
+        }
+      },
+      {
+        "stage": "model",
+        "iteration": 2,
+        "message": {
+          "role": "assistant",
+          "content": "We have 6 eggs, which is more than the low stock threshold of 2. No action needed."
+        }
+      },
+      {
+        "stage": "final",
+        "answer": "We have 6 eggs, which is more than the low stock threshold of 2. No action needed.",
+        "pending_actions": [],
+        "diagnostics": {
+          "stop_reason": "final_answer",
+          "iterations": 2,
+          "tool_calls": 1,
+          "duplicate_calls": 0
+        }
+      }
+    ],
+    "http_status": 200,
+    "request_id": "b631ec51-8b85-4c86-9fe0-95b1d3d2415d",
+    "actual": {
+      "response": "We have 6 eggs, which is more than the low stock threshold of 2. No action needed.",
+      "model": "qwen3:8b",
+      "latency_ms": 1366,
+      "pending_actions": [],
+      "sources": [],
+      "evidence_status": "not_applicable",
+      "request_id": "b631ec51-8b85-4c86-9fe0-95b1d3d2415d",
+      "session_id": null,
+      "memory_refs": []
+    },
+    "proposals": [],
+    "tool_calls": [
+      "check_inventory"
+    ],
+    "diagnostics": {
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "tool_calls": 1,
+      "duplicate_calls": 0
+    },
+    "checks": {
+      "http_ok": true,
+      "expected_tools_present": true,
+      "expected_terms_present": true,
+      "proposal_expectation": true,
+      "no_confirmed_write": true,
+      "within_iteration_cap": true
+    },
+    "cleanup_errors": [],
+    "household_unchanged": true,
+    "passed": true
+  }
+]

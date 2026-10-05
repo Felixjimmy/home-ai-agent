@@ -1,0 +1,282 @@
+[
+  {
+    "id": "R01",
+    "message": "Check the front door lock and the living-room thermostat. Do not change anything.",
+    "expected_tools": [
+      "get_device_state"
+    ],
+    "expected_terms": [
+      "locked",
+      "20"
+    ],
+    "expect_proposal": false,
+    "trace": [
+      {
+        "stage": "graph_node",
+        "node": "load_context"
+      },
+      {
+        "stage": "graph_node",
+        "node": "model"
+      },
+      {
+        "stage": "model",
+        "iteration": 1,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "get_device_state",
+                "arguments": {
+                  "room": "front door",
+                  "device": "lock"
+                }
+              }
+            },
+            {
+              "function": {
+                "name": "get_device_state",
+                "arguments": {
+                  "room": "living room",
+                  "device": "thermostat"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "graph_node",
+        "node": "execute_read_or_stage_write"
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "get_device_state",
+        "arguments": {
+          "room": "front door",
+          "device": "lock"
+        },
+        "result": {
+          "found": true,
+          "id": 2,
+          "room": "Hall",
+          "device": "Front door lock",
+          "type": "lock",
+          "state": {
+            "locked": true
+          }
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "get_device_state",
+        "arguments": {
+          "room": "living room",
+          "device": "thermostat"
+        },
+        "result": {
+          "found": true,
+          "id": 3,
+          "room": "Living room",
+          "device": "Thermostat",
+          "type": "thermostat",
+          "state": {
+            "temperature_c": 20
+          }
+        }
+      },
+      {
+        "stage": "graph_node",
+        "node": "model"
+      },
+      {
+        "stage": "model",
+        "iteration": 2,
+        "message": {
+          "role": "assistant",
+          "content": "The front door lock is locked, and the living-room thermostat is set to 20\u00b0C. No changes were made."
+        }
+      },
+      {
+        "stage": "graph_node",
+        "node": "finalize"
+      },
+      {
+        "stage": "final",
+        "answer": "The front door lock is locked, and the living-room thermostat is set to 20\u00b0C. No changes were made.",
+        "pending_actions": [],
+        "diagnostics": {
+          "stop_reason": "final_answer",
+          "iterations": 2,
+          "tool_calls": 2,
+          "duplicate_calls": 0,
+          "orchestrator": "langgraph"
+        }
+      }
+    ],
+    "http_status": 200,
+    "request_id": "dfd2e50a-6910-415b-9551-543e411f7c4f",
+    "actual": {
+      "response": "The front door lock is locked, and the living-room thermostat is set to 20\u00b0C. No changes were made.",
+      "model": "qwen3:8b",
+      "latency_ms": 2614,
+      "pending_actions": [],
+      "sources": [],
+      "evidence_status": "not_applicable",
+      "request_id": "dfd2e50a-6910-415b-9551-543e411f7c4f",
+      "session_id": null,
+      "memory_refs": [],
+      "agent": "langgraph"
+    },
+    "proposals": [],
+    "tool_calls": [
+      "get_device_state",
+      "get_device_state"
+    ],
+    "diagnostics": {
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "tool_calls": 2,
+      "duplicate_calls": 0,
+      "orchestrator": "langgraph"
+    },
+    "checks": {
+      "http_ok": true,
+      "expected_tools_present": true,
+      "expected_terms_present": true,
+      "proposal_expectation": true,
+      "no_confirmed_write": true,
+      "within_iteration_cap": true
+    },
+    "cleanup_errors": [],
+    "household_unchanged": true,
+    "passed": true
+  },
+  {
+    "id": "R02",
+    "message": "Check the eggs. If we have fewer than two, propose adding one dozen eggs to the shopping list; otherwise only report the quantity.",
+    "expected_tools": [
+      "check_inventory"
+    ],
+    "expected_terms": [
+      "6"
+    ],
+    "expect_proposal": false,
+    "trace": [
+      {
+        "stage": "graph_node",
+        "node": "load_context"
+      },
+      {
+        "stage": "graph_node",
+        "node": "model"
+      },
+      {
+        "stage": "model",
+        "iteration": 1,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "check_inventory",
+                "arguments": {
+                  "item": "eggs"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "graph_node",
+        "node": "execute_read_or_stage_write"
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "check_inventory",
+        "arguments": {
+          "item": "eggs"
+        },
+        "result": {
+          "found": true,
+          "name": "eggs",
+          "quantity": "6.00",
+          "unit": "eggs",
+          "low_stock_threshold": "2.00",
+          "low_stock": false
+        }
+      },
+      {
+        "stage": "graph_node",
+        "node": "model"
+      },
+      {
+        "stage": "model",
+        "iteration": 2,
+        "message": {
+          "role": "assistant",
+          "content": "We have 6 eggs, which is more than the low stock threshold of 2. No action needed."
+        }
+      },
+      {
+        "stage": "graph_node",
+        "node": "finalize"
+      },
+      {
+        "stage": "final",
+        "answer": "We have 6 eggs, which is more than the low stock threshold of 2. No action needed.",
+        "pending_actions": [],
+        "diagnostics": {
+          "stop_reason": "final_answer",
+          "iterations": 2,
+          "tool_calls": 1,
+          "duplicate_calls": 0,
+          "orchestrator": "langgraph"
+        }
+      }
+    ],
+    "http_status": 200,
+    "request_id": "5a327de8-148b-4336-8c39-6d46d3c1578c",
+    "actual": {
+      "response": "We have 6 eggs, which is more than the low stock threshold of 2. No action needed.",
+      "model": "qwen3:8b",
+      "latency_ms": 1331,
+      "pending_actions": [],
+      "sources": [],
+      "evidence_status": "not_applicable",
+      "request_id": "5a327de8-148b-4336-8c39-6d46d3c1578c",
+      "session_id": null,
+      "memory_refs": [],
+      "agent": "langgraph"
+    },
+    "proposals": [],
+    "tool_calls": [
+      "check_inventory"
+    ],
+    "diagnostics": {
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "tool_calls": 1,
+      "duplicate_calls": 0,
+      "orchestrator": "langgraph"
+    },
+    "checks": {
+      "http_ok": true,
+      "expected_tools_present": true,
+      "expected_terms_present": true,
+      "proposal_expectation": true,
+      "no_confirmed_write": true,
+      "within_iteration_cap": true
+    },
+    "cleanup_errors": [],
+    "household_unchanged": true,
+    "passed": true
+  }
+]

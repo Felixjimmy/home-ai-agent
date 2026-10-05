@@ -1,0 +1,432 @@
+[
+  {
+    "id": "A01",
+    "message": "Is the Hall light on, and how many eggs are available?",
+    "expected_tools": [
+      "get_device_state",
+      "check_inventory"
+    ],
+    "expected_terms": [
+      "off",
+      "6"
+    ],
+    "expect_proposal": false,
+    "trace": [
+      {
+        "stage": "model",
+        "iteration": 1,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "get_device_state",
+                "arguments": {
+                  "room": "Hall",
+                  "device": "light"
+                }
+              }
+            },
+            {
+              "function": {
+                "name": "check_inventory",
+                "arguments": {
+                  "item": "eggs"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "get_device_state",
+        "arguments": {
+          "room": "Hall",
+          "device": "light"
+        },
+        "result": {
+          "found": true,
+          "id": 1,
+          "room": "Hall",
+          "device": "Hall light",
+          "type": "light",
+          "state": {
+            "power": "off"
+          }
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "check_inventory",
+        "arguments": {
+          "item": "eggs"
+        },
+        "result": {
+          "found": true,
+          "name": "eggs",
+          "quantity": "6.00",
+          "unit": "eggs",
+          "low_stock_threshold": "2.00",
+          "low_stock": false
+        }
+      },
+      {
+        "stage": "model",
+        "iteration": 2,
+        "message": {
+          "role": "assistant",
+          "content": "The Hall light is off. There are 6 eggs available, which is above the low stock threshold of 2 eggs."
+        }
+      },
+      {
+        "stage": "final",
+        "answer": "The Hall light is off. There are 6 eggs available, which is above the low stock threshold of 2 eggs.",
+        "pending_actions": [],
+        "diagnostics": {
+          "stop_reason": "final_answer",
+          "iterations": 2,
+          "tool_calls": 2,
+          "duplicate_calls": 0
+        }
+      }
+    ],
+    "http_status": 200,
+    "request_id": "543e3950-a173-4344-8f92-f6a929413af7",
+    "actual": {
+      "response": "The Hall light is off. There are 6 eggs available, which is above the low stock threshold of 2 eggs.",
+      "model": "qwen3:8b",
+      "latency_ms": 2489,
+      "pending_actions": [],
+      "sources": [],
+      "evidence_status": "not_applicable",
+      "request_id": "543e3950-a173-4344-8f92-f6a929413af7",
+      "session_id": null,
+      "memory_refs": []
+    },
+    "proposals": [],
+    "tool_calls": [
+      "get_device_state",
+      "check_inventory"
+    ],
+    "diagnostics": {
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "tool_calls": 2,
+      "duplicate_calls": 0
+    },
+    "checks": {
+      "http_ok": true,
+      "expected_tools_present": true,
+      "expected_terms_present": true,
+      "proposal_expectation": true,
+      "no_confirmed_write": true,
+      "within_iteration_cap": true
+    },
+    "cleanup_errors": [],
+    "household_unchanged": true,
+    "passed": true
+  },
+  {
+    "id": "A02",
+    "message": "Check how much milk is left. If it is low, add 2 cartons of oat milk to the shopping list.",
+    "expected_tools": [
+      "check_inventory",
+      "add_to_shopping_list"
+    ],
+    "expected_terms": [
+      "pending"
+    ],
+    "expect_proposal": true,
+    "trace": [
+      {
+        "stage": "model",
+        "iteration": 1,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "check_inventory",
+                "arguments": {
+                  "item": "milk"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "check_inventory",
+        "arguments": {
+          "item": "milk"
+        },
+        "result": {
+          "found": true,
+          "name": "milk",
+          "quantity": "1.00",
+          "unit": "carton",
+          "low_stock_threshold": "1.00",
+          "low_stock": true
+        }
+      },
+      {
+        "stage": "model",
+        "iteration": 2,
+        "message": {
+          "role": "assistant",
+          "content": "The milk quantity is at the low stock threshold. I will propose adding 2 cartons of oat milk to the shopping list. Would you like to confirm this addition?"
+        }
+      },
+      {
+        "stage": "model",
+        "iteration": 3,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "add_to_shopping_list",
+                "arguments": {
+                  "item": "oat milk",
+                  "quantity": 2,
+                  "unit": "carton"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 3,
+        "name": "add_to_shopping_list",
+        "arguments": {
+          "item": "oat milk",
+          "quantity": 2,
+          "unit": "carton"
+        },
+        "result": {
+          "status": "pending_confirmation",
+          "action_id": "530fb46e-f5de-4cba-82f8-ba666f4ef818",
+          "description": "Add 2.0 carton of oat milk to the shopping list"
+        }
+      },
+      {
+        "stage": "model",
+        "iteration": 4,
+        "message": {
+          "role": "assistant",
+          "content": "I have proposed to add 2 cartons of oat milk to the shopping list. The action is pending confirmation."
+        }
+      },
+      {
+        "stage": "final",
+        "answer": "No changes have been executed. Pending explicit confirmation:\n- Add 2.0 carton of oat milk to the shopping list",
+        "pending_actions": [
+          {
+            "id": "530fb46e-f5de-4cba-82f8-ba666f4ef818",
+            "tool_name": "add_to_shopping_list",
+            "description": "Add 2.0 carton of oat milk to the shopping list",
+            "expires_at": "2026-10-05 19:53:22.859255+00:00"
+          }
+        ],
+        "diagnostics": {
+          "stop_reason": "final_answer",
+          "iterations": 4,
+          "tool_calls": 2,
+          "duplicate_calls": 0
+        }
+      }
+    ],
+    "http_status": 200,
+    "request_id": "05dfd91a-7e1f-46e0-b580-632b7efdf6da",
+    "actual": {
+      "response": "No changes have been executed. Pending explicit confirmation:\n- Add 2.0 carton of oat milk to the shopping list",
+      "model": "qwen3:8b",
+      "latency_ms": 3767,
+      "pending_actions": [
+        {
+          "id": "530fb46e-f5de-4cba-82f8-ba666f4ef818",
+          "tool_name": "add_to_shopping_list",
+          "description": "Add 2.0 carton of oat milk to the shopping list",
+          "expires_at": "2026-10-05 19:53:22.859255+00:00"
+        }
+      ],
+      "sources": [],
+      "evidence_status": "not_applicable",
+      "request_id": "05dfd91a-7e1f-46e0-b580-632b7efdf6da",
+      "session_id": null,
+      "memory_refs": []
+    },
+    "proposals": [
+      {
+        "id": "530fb46e-f5de-4cba-82f8-ba666f4ef818",
+        "tool_name": "add_to_shopping_list",
+        "status": "pending"
+      }
+    ],
+    "tool_calls": [
+      "check_inventory",
+      "add_to_shopping_list"
+    ],
+    "diagnostics": {
+      "stop_reason": "final_answer",
+      "iterations": 4,
+      "tool_calls": 2,
+      "duplicate_calls": 0
+    },
+    "checks": {
+      "http_ok": true,
+      "expected_tools_present": true,
+      "expected_terms_present": true,
+      "proposal_expectation": true,
+      "no_confirmed_write": true,
+      "within_iteration_cap": true
+    },
+    "cleanup_errors": [],
+    "household_unchanged": true,
+    "passed": true
+  },
+  {
+    "id": "A03",
+    "message": "Is the front door locked? Then tell me whether the Hall light is on.",
+    "expected_tools": [
+      "get_device_state"
+    ],
+    "expected_terms": [
+      "locked",
+      "off"
+    ],
+    "expect_proposal": false,
+    "trace": [
+      {
+        "stage": "model",
+        "iteration": 1,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "get_device_state",
+                "arguments": {
+                  "room": "Front Hall",
+                  "device": "Front Door Lock"
+                }
+              }
+            },
+            {
+              "function": {
+                "name": "get_device_state",
+                "arguments": {
+                  "device": "Hall Light",
+                  "room": "Front Hall"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "get_device_state",
+        "arguments": {
+          "room": "Front Hall",
+          "device": "Front Door Lock"
+        },
+        "result": {
+          "found": true,
+          "id": 2,
+          "room": "Hall",
+          "device": "Front door lock",
+          "type": "lock",
+          "state": {
+            "locked": true
+          }
+        }
+      },
+      {
+        "stage": "tool",
+        "iteration": 1,
+        "name": "get_device_state",
+        "arguments": {
+          "device": "Hall Light",
+          "room": "Front Hall"
+        },
+        "result": {
+          "found": true,
+          "id": 1,
+          "room": "Hall",
+          "device": "Hall light",
+          "type": "light",
+          "state": {
+            "power": "off"
+          }
+        }
+      },
+      {
+        "stage": "model",
+        "iteration": 2,
+        "message": {
+          "role": "assistant",
+          "content": "The front door is locked, and the Hall light is off."
+        }
+      },
+      {
+        "stage": "final",
+        "answer": "The front door is locked, and the Hall light is off.",
+        "pending_actions": [],
+        "diagnostics": {
+          "stop_reason": "final_answer",
+          "iterations": 2,
+          "tool_calls": 2,
+          "duplicate_calls": 0
+        }
+      }
+    ],
+    "http_status": 200,
+    "request_id": "ff1d7ba3-4eac-49be-80da-d595c4a5c1cd",
+    "actual": {
+      "response": "The front door is locked, and the Hall light is off.",
+      "model": "qwen3:8b",
+      "latency_ms": 2261,
+      "pending_actions": [],
+      "sources": [],
+      "evidence_status": "not_applicable",
+      "request_id": "ff1d7ba3-4eac-49be-80da-d595c4a5c1cd",
+      "session_id": null,
+      "memory_refs": []
+    },
+    "proposals": [],
+    "tool_calls": [
+      "get_device_state",
+      "get_device_state"
+    ],
+    "diagnostics": {
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "tool_calls": 2,
+      "duplicate_calls": 0
+    },
+    "checks": {
+      "http_ok": true,
+      "expected_tools_present": true,
+      "expected_terms_present": true,
+      "proposal_expectation": true,
+      "no_confirmed_write": true,
+      "within_iteration_cap": true
+    },
+    "cleanup_errors": [],
+    "household_unchanged": true,
+    "passed": true
+  }
+]

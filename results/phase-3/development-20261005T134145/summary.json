@@ -1,0 +1,11 @@
+{
+  "split": "development",
+  "count": 20,
+  "passed": 20,
+  "failures": [],
+  "limitations": [
+    "Synthetic corpus, document-selected retrieval; unfiltered search tested separately.",
+    "Required-term and citation-ID checks are not a proof of semantic support. Review saved passages and answers.",
+    "No claim of a paired thinking-on/off benchmark."
+  ]
+}

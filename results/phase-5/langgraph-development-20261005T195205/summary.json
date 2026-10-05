@@ -1,0 +1,14 @@
+{
+  "split": "development",
+  "count": 3,
+  "passed": 3,
+  "failures": [],
+  "model": "qwen3:8b",
+  "agent": "langgraph",
+  "thinking": false,
+  "case_sha256": "b8db2d24c4c9fd8c6043e6afbd8f3948c3b3d06dc211e98acef7dae3fdc97c2e",
+  "limitations": [
+    "The harness checks tool sequence indicators and required answer terms; review saved traces for semantic quality.",
+    "It rejects only proposals created by its own request IDs and must run against an isolated database."
+  ]
+}

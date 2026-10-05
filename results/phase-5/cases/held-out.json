@@ -1,0 +1,16 @@
+[
+  {
+    "id": "R01",
+    "message": "Check the front door lock and the living-room thermostat. Do not change anything.",
+    "expected_tools": ["get_device_state"],
+    "expected_terms": ["locked", "20"],
+    "expect_proposal": false
+  },
+  {
+    "id": "R02",
+    "message": "Check the eggs. If we have fewer than two, propose adding one dozen eggs to the shopping list; otherwise only report the quantity.",
+    "expected_tools": ["check_inventory"],
+    "expected_terms": ["6"],
+    "expect_proposal": false
+  }
+]

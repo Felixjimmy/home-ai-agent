@@ -1,0 +1,23 @@
+[
+  {
+    "id": "N01",
+    "message": "Check the front door lock and the living-room thermostat. Do not change anything.",
+    "expected_specialists": ["household"],
+    "expected_terms": ["locked", "20"],
+    "expect_proposal": false
+  },
+  {
+    "id": "N02",
+    "message": "Put a family dinner on the calendar for Friday at 7pm with Alex.",
+    "expected_specialists": ["scheduler"],
+    "expected_terms": ["pending"],
+    "expect_proposal": true
+  },
+  {
+    "id": "N03",
+    "message": "Check the eggs, and if there are fewer than two add one dozen eggs to the shopping list.",
+    "expected_specialists": ["household"],
+    "expected_terms": ["6"],
+    "expect_proposal": false
+  }
+]

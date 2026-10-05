@@ -1,0 +1,64 @@
+{
+  "corpus": {
+    "aster": {
+      "document_id": "7733f695-525f-4bca-8568-d4872bf317e6",
+      "version_id": "9383a18f-8f91-4523-80c1-898a4a1b0865",
+      "job_id": "00a727d8-83a4-4b10-a987-e8665a9bc304",
+      "status": "queued",
+      "sha256": "016ac984278c12550f755a5470f7fc4c70b104a37171b14d392d23e9fc7b4055",
+      "title": "Synthetic Aster D100 manual"
+    },
+    "birch": {
+      "document_id": "7468d6a4-842d-45fd-a0b8-30fae71578a2",
+      "version_id": "59a9ebdd-7852-4131-8da3-c071b0d6a094",
+      "job_id": "6a46c33f-46b2-41d0-aaef-73a1b0569e8e",
+      "status": "queued",
+      "sha256": "f16b0a7a362bc4459aef44f58b3646154312a6ef162d69ab2e46647e679fc89b",
+      "title": "Synthetic Birch B200 manual"
+    },
+    "rules": {
+      "document_id": "98a243f3-c0f5-4945-a7e8-6d5247e2121a",
+      "version_id": "924263bc-452e-464c-ac1f-a3a61e29f198",
+      "job_id": "c7981887-83ae-47b1-9152-6688013d15fb",
+      "status": "queued",
+      "sha256": "d54b7dd131bfd71a2515aa1e585f817744278dc47be1decb28b43f4849d6aa7f",
+      "title": "Synthetic household rules"
+    },
+    "maintenance": {
+      "document_id": "3f434373-e161-49a2-9079-9f721cccbeea",
+      "version_id": "c6a88777-34ce-4542-b353-b78b90c74d80",
+      "job_id": "f27a3ac6-9606-4e0a-bd1f-6afae0a9bcad",
+      "status": "queued",
+      "sha256": "ab5060bd35c802cba4a3c25fb4dbc48b7fe6a4c8b67297812c6a63f18cc8545b",
+      "title": "Synthetic maintenance schedule"
+    },
+    "note": {
+      "document_id": "fef47b3a-eb16-4950-96e6-4b443e8c3dfd",
+      "version_id": "7851bf71-f2ea-48a9-9913-c42bc9799d77",
+      "job_id": "74ae5836-1eef-4d0f-954e-3e2a8f60bd01",
+      "status": "queued",
+      "sha256": "39f45005952f26494f720bebf3313c8ae01388b6e3a77970e49d9fd79f38f0b9",
+      "title": "Synthetic untrusted household note"
+    },
+    "conflict": {
+      "document_id": "1f0e4d94-6d16-4de1-b9f8-bb70e14c900e",
+      "version_id": "7f594096-f77e-4224-81a3-315077d73319",
+      "job_id": "505836ae-a565-4df5-ab51-5918bcf990c9",
+      "status": "queued",
+      "sha256": "b117ed6539a280b8081e8aeb1a609354f05778807f071ce7c26a7fbcfc3478ca",
+      "title": "Synthetic unresolved garage notes"
+    }
+  },
+  "model": "qwen3:8b",
+  "thinking": false,
+  "embedding": {
+    "model": "embeddinggemma",
+    "digest": "85462619ee721b466c5927d109d4cb765861907d5417b9109caebc4e614679f1",
+    "dimension": 768,
+    "chunk_chars": 1600,
+    "overlap_chars": 240,
+    "extractor": "v1"
+  },
+  "python": "3.14.6",
+  "case_sha256": "b6fdcdfb79b7903d24ed435e8c7a677d13f42e0d6dac57a2ff2baabf4b7e2184"
+}

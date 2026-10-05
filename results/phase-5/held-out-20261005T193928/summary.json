@@ -1,0 +1,13 @@
+{
+  "split": "held-out",
+  "count": 2,
+  "passed": 2,
+  "failures": [],
+  "model": "qwen3:8b",
+  "thinking": false,
+  "case_sha256": "5f600d8778023c053fe430a319b34eccedff1176f89c4f33135c53a45e8625ba",
+  "limitations": [
+    "The harness checks tool sequence indicators and required answer terms; review saved traces for semantic quality.",
+    "It rejects only proposals created by its own request IDs and must run against an isolated database."
+  ]
+}
