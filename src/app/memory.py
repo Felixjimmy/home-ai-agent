@@ -16,7 +16,10 @@ def create_session() -> dict:
             "INSERT INTO conversation_sessions(id) VALUES (%s) RETURNING id,status,created_at,last_used_at",
             (session_id,),
         ).fetchone()
-    return json_safe(dict(row))
+    result = dict(row)
+    result["message_count"] = 0
+    result["messages"] = []
+    return json_safe(result)
 
 
 def _session(conn, session_id: str):
@@ -33,8 +36,14 @@ def get_session(session_id: str) -> dict:
     with database_connection() as conn:
         row = _session(conn, session_id)
         count = conn.execute("SELECT count(*) AS count FROM conversation_messages WHERE session_id=%s", (UUID(str(session_id)),)).fetchone()["count"]
+        messages = conn.execute(
+            "SELECT id,sequence,role,content,created_at FROM conversation_messages "
+            "WHERE session_id=%s AND role IN ('user','assistant') ORDER BY sequence ASC",
+            (UUID(str(session_id)),),
+        ).fetchall()
     result = dict(row)
     result["message_count"] = count
+    result["messages"] = [dict(message) for message in messages]
     return json_safe(result)
 
 
@@ -43,8 +52,18 @@ def append_message(session_id: str, role: str, content: str, model: str | None =
         raise ValueError("Unsupported conversation role.")
     with database_connection() as conn:
         sid = UUID(str(session_id))
-        _session(conn, session_id)
-        sequence = conn.execute("SELECT COALESCE(MAX(sequence),0)+1 AS next FROM conversation_messages WHERE session_id=%s FOR UPDATE", (sid,)).fetchone()["next"]
+        session = conn.execute(
+            "SELECT id FROM conversation_sessions "
+            "WHERE id=%s AND status='active' FOR UPDATE",
+            (sid,),
+        ).fetchone()
+        if session is None:
+            raise LookupError("The session was not found or has been deleted.")
+        sequence = conn.execute(
+            "SELECT COALESCE(MAX(sequence),0)+1 AS next "
+            "FROM conversation_messages WHERE session_id=%s",
+            (sid,),
+        ).fetchone()["next"]
         row = conn.execute(
             "INSERT INTO conversation_messages(id,session_id,sequence,role,content,request_id,model,char_count) VALUES (%s,%s,%s,%s,%s,%s,%s,%s) RETURNING *",
             (uuid4(), sid, sequence, role, content, request_id_context.get(), model, len(content)),
