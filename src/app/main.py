@@ -7,6 +7,7 @@ from uuid import UUID, uuid4
 
 import psycopg
 from fastapi import FastAPI, HTTPException, status, Header, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from httpx import HTTPError
 from ollama import ResponseError
@@ -34,6 +35,17 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title="Home AI Agent", version="0.3.0", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Accept", "Content-Type"],
+)
 from app.document_routes import router as document_router
 app.include_router(document_router)
 from app.memory_routes import router as memory_router

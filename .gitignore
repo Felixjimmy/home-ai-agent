@@ -6,3 +6,6 @@ __pycache__/
 .ruff_cache/
 .mypy_cache/
 storage/
+ui/.env
+ui/node_modules/
+ui/dist/
